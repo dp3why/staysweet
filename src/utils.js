@@ -1,5 +1,5 @@
 // const domain = "http://localhost:8080";
-const domain = process.env.REACT_PUBLIC_BACKEND;
+const domain = process.env.REACT_APP_BACKEND;
 export const login = (credential, asHost) => {
   const loginUrl = `${domain}/auth/login`;
   const statusOfApiRequest = fetch(loginUrl, {
