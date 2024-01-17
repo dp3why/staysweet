@@ -50,12 +50,12 @@ export class MyReservations extends React.Component {
             ]}
           >
             <List.Item.Meta
-              title={<Text>{item.stay.name}</Text>}
+              title={<Text>{item.listing.name}</Text>}
               description={
                 <>
-                  <Text>Checkin Date: {item.checkin_date}</Text>
+                  <Text>Checkin Date: {item.checkinDate}</Text>
                   <br />
-                  <Text>Checkout Date: {item.checkout_date}</Text>
+                  <Text>Checkout Date: {item.checkoutDate}</Text>
                 </>
               }
             />

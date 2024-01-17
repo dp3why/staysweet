@@ -1,6 +1,6 @@
-// const domain = "http://localhost:8080";
-const domain = process.env.REACT_APP_BACKEND;
-export const login = (credential, asHost) => {
+const domain = "http://localhost:8080";
+// const domain = process.env.REACT_APP_BACKEND;
+export const login = (credential) => {
   const loginUrl = `${domain}/auth/login`;
   const statusOfApiRequest = fetch(loginUrl, {
     method: "POST",
@@ -10,13 +10,15 @@ export const login = (credential, asHost) => {
     body: JSON.stringify(credential),
   });
   return statusOfApiRequest.then((response) => {
-    if (response.status !== 200) throw Error("FAIL TO LOG IN!");
+    if (response.status >= 300) {
+      throw Error("FAIL TO LOG IN!");
+    }
     return response.json();
   });
 };
 
-export const register = (credential, asHost) => {
-  const registerUrl = `${domain}/auth/register/${asHost ? "host" : "guest"}`;
+export const register = (credential) => {
+  const registerUrl = `${domain}/auth/register`;
   return fetch(registerUrl, {
     method: "POST",
     headers: {
@@ -24,10 +26,13 @@ export const register = (credential, asHost) => {
     },
     body: JSON.stringify(credential),
   }).then((response) => {
-    if (response.status !== 201) throw Error("FAIL TO REGISTER!");
+    if (response.status >= 300) {
+      throw Error("FAIL TO REGISTER!");
+    }
   });
 };
 
+// GET: guest check the bookings by the current guest user
 export const getReservations = () => {
   const authToken = localStorage.getItem("authToken");
   const listReservationsUrl = `${domain}/bookings`;
@@ -37,7 +42,9 @@ export const getReservations = () => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status !== 200) throw Error("FAILED TO GET RESERVATION LIST!");
+    if (response.status >= 300) {
+      throw Error("FAILED TO GET RESERVATION LIST!");
+    }
     return response.json();
   });
 };
@@ -51,7 +58,7 @@ export const getStaysByHost = () => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status !== 200) {
+    if (response.status >= 300) {
       throw Error("FAILED TO GET STAY LIST!");
     }
 
@@ -79,7 +86,9 @@ export const searchStays = (query) => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status !== 200) throw Error("FAILED TO SEARCH STAYS!");
+    if (response.status >= 300) {
+      throw Error("FAILED TO SEARCH STAYS!");
+    }
     return response.json();
   });
 };
@@ -94,10 +103,12 @@ export const deleteStay = (stayId) => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status !== 200) throw Error("FAILED TO DELETE STAY!");
+    if (response.status >= 300) {
+      throw Error("FAILED TO DELETE STAY!");
+    }
   });
 };
-
+// Guest book a new stay
 export const bookStay = (data) => {
   const authToken = localStorage.getItem("authToken");
   const bookStayUrl = `${domain}/bookings`;
@@ -110,10 +121,12 @@ export const bookStay = (data) => {
     },
     body: JSON.stringify(data),
   }).then((response) => {
-    if (response.status !== 201) throw Error("FAILED TO BOOK RESERVATION!");
+    if (response.status >= 300) {
+      throw Error("FAILED TO BOOK RESERVATION!");
+    }
   });
 };
-
+// Guest : cancel the reservation
 export const cancelReservation = (reservationId) => {
   const authToken = localStorage.getItem("authToken");
   const cancelReservationUrl = `${domain}/bookings/${reservationId}`;
@@ -124,7 +137,9 @@ export const cancelReservation = (reservationId) => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status !== 200) throw Error("FAILED TO CANCEL RESERVATION!");
+    if (response.status >= 300) {
+      throw Error("FAILED TO CANCEL RESERVATION!");
+    }
   });
 };
 
@@ -137,8 +152,9 @@ export const getReservationsByStay = (stayId) => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status !== 200)
+    if (response.status >= 300) {
       throw Error("FAILED TO GET RESERVATIONS BY STAY!");
+    }
     return response.json();
   });
 };
@@ -154,6 +170,8 @@ export const uploadStay = (data) => {
     },
     body: data,
   }).then((response) => {
-    if (response.status !== 200) throw Error("FAILED TO UPLOAD STAY!");
+    if (response.status >= 300) {
+      throw Error("FAILED TO UPLOAD STAY!");
+    }
   });
 };

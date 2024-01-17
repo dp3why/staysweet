@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
 
     try {
       const { asHost } = this.state;
-      const resp = await login(formInstance.getFieldsValue(true), asHost);
+      const resp = await login(formInstance.getFieldsValue(true));
       this.props.handleLoginSuccess(resp.token, asHost);
     } catch (error) {
       message.error(error.message);
@@ -54,7 +54,10 @@ class LoginPage extends React.Component {
     });
 
     try {
-      await register(formInstance.getFieldsValue(true), this.state.asHost);
+      await register({
+        ...formInstance.getFieldsValue(true),
+        role: this.state.asHost ? "ROLE_HOST" : "ROLE_GUEST",
+      });
       message.success("Register Successfully");
     } catch (error) {
       console.log(error.message);

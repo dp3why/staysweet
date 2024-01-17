@@ -60,7 +60,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <Layout style={{ height: "100vh" }}>
+      <Layout>
         <Content style={{ overflow: "auto" }}>
           <div
             className="hero-background"
@@ -122,7 +122,8 @@ class App extends React.Component {
           {this.renderContent()}
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          StaySweet ©{new Date().getFullYear()} by dp3why
+          <h4>StaySweet ©{new Date().getFullYear()} by dp3why</h4>
+          <p>Short Rental Booking Web App</p>
         </Footer>
       </Layout>
     );
