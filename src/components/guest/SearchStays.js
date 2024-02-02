@@ -13,7 +13,7 @@ import {
   Typography,
 } from "antd";
 import { searchStays } from "../../utils";
-// import { LeftCircleFilled, RightCircleFilled } from "@ant-design/icons";
+
 import { StayDetailInfoButton } from "../StayDetailInfoButton";
 import { BookStayButton } from "./BookStayButton";
 
@@ -87,7 +87,7 @@ export class SearchStays extends React.Component {
             xs: 1,
             sm: 2,
             md: 2,
-            lg: 3,
+            lg: 2,
             xl: 3,
             xxl: 3,
           }}
@@ -96,24 +96,12 @@ export class SearchStays extends React.Component {
             <List.Item>
               <Card
                 key={item.id}
-                title={
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <Text ellipsis={true} style={{ maxWidth: 150 }}>
-                      {item.name}
-                    </Text>
-                    <StayDetailInfoButton stay={item} />
-                  </div>
-                }
-                extra={<BookStayButton stay={item} />}
-              >
-                {
+                cover={
                   <Carousel
                     dots={true}
                     autoplay={true}
                     autoplaySpeed={6000}
                     // arrows={true}
-                    // prevArrow={<LeftCircleFilled />}
-                    // nextArrow={<RightCircleFilled />}
                   >
                     {item.images.map((image, index) => (
                       <div key={index}>
@@ -122,6 +110,20 @@ export class SearchStays extends React.Component {
                     ))}
                   </Carousel>
                 }
+                extra={null}
+                actions={[
+                  <StayDetailInfoButton stay={item} />,
+                  <BookStayButton stay={item} />,
+                ]}
+              >
+                <Card.Meta
+                  title={
+                    <Text ellipsis={true} style={{ maxWidth: 150 }}>
+                      {item.name}
+                    </Text>
+                  }
+                  description={item.address}
+                />
               </Card>
             </List.Item>
           )}

@@ -1,10 +1,11 @@
 import React from "react";
-import { message, Button } from "antd";
+import { message, Button, Modal } from "antd";
 import { cancelReservation } from "../../utils";
 
 export class CancelReservationButton extends React.Component {
   state = {
     loading: false,
+    visible: false,
   };
 
   handleCancelReservation = async () => {
@@ -26,17 +27,43 @@ export class CancelReservationButton extends React.Component {
     onCancelSuccess();
   };
 
+  handleButtonClicked = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  handleCancel = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
   render() {
     return (
-      <Button
-        loading={this.state.loading}
-        onClick={this.handleCancelReservation}
-        danger={true}
-        shape="round"
-        type="primary"
-      >
-        Cancel Reservation
-      </Button>
+      <>
+        <Button
+          loading={this.state.loading}
+          onClick={this.handleButtonClicked}
+          danger={true}
+          shape="round"
+          type="primary"
+        >
+          Cancel
+        </Button>
+        <Modal
+          centered
+          title="Cancel your reservation"
+          open={this.state.visible}
+          onCancel={this.handleCancel}
+          onOk={this.handleCancelReservation}
+          okText="Yes"
+        >
+          <p>
+            You are going to cancel your reservation. Are you sure to continue?
+          </p>
+        </Modal>
+      </>
     );
   }
 }

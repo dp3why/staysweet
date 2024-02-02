@@ -1,7 +1,7 @@
 import React from "react";
 import { message, Form, DatePicker, Button, Modal } from "antd";
 import { bookStay } from "../../utils";
-
+import { ShopOutlined } from "@ant-design/icons";
 export class BookStayButton extends React.Component {
   state = {
     loading: false,
@@ -46,7 +46,13 @@ export class BookStayButton extends React.Component {
     const { stay } = this.props;
     return (
       <>
-        <Button onClick={this.handleBookStay} shape="round" type="primary">
+        <Button
+          onClick={this.handleBookStay}
+          shape="round"
+          size="large"
+          type="primary"
+          icon={<ShopOutlined />}
+        >
           Book Stay
         </Button>
         <Modal

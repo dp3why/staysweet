@@ -1,5 +1,5 @@
 import { Button, Tooltip, Space, Modal } from "antd";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import Text from "antd/lib/typography/Text";
 import React from "react";
 
@@ -22,24 +22,26 @@ export class StayDetailInfoButton extends React.Component {
 
   render() {
     const { stay } = this.props;
-    const { name, description, address, guest_number } = stay;
+    const { name, description, address, guestNumber } = stay;
     const { modalVisible } = this.state;
     return (
       <>
         <Tooltip title="View Stay Details">
           <Button
+            shape="round"
             onClick={this.openModal}
-            style={{ border: "none" }}
             size="large"
-            icon={<InfoCircleOutlined />}
-          />
+            icon={<HomeOutlined />}
+          >
+            Details
+          </Button>
         </Tooltip>
         {modalVisible && (
           <Modal
             title={name}
             centered={true}
             open={modalVisible}
-            closable={false}
+            width="70%"
             footer={null}
             onCancel={this.handleCancel}
           >
@@ -49,7 +51,7 @@ export class StayDetailInfoButton extends React.Component {
               <Text strong={true}>Address</Text>
               <Text type="secondary">{address}</Text>
               <Text strong={true}>Guest Number</Text>
-              <Text type="secondary">{guest_number}</Text>
+              <Text type="secondary">{guestNumber}</Text>
             </Space>
           </Modal>
         )}
