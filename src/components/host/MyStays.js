@@ -24,11 +24,10 @@ export default class MyStays extends React.Component {
 
     try {
       const resp = await getStaysByHost();
+
       this.setState({
         data: resp,
       });
-      // lising information
-      // console.log(this.state.data);
     } catch (error) {
       message.error(error.message);
     } finally {

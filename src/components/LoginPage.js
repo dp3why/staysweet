@@ -103,6 +103,7 @@ class LoginPage extends React.Component {
             ]}
           >
             <Input.Password
+              autoComplete="false"
               disabled={this.state.loading}
               placeholder="Password"
             />

@@ -1,5 +1,4 @@
-// const domain = "http://localhost:8080";
-const domain = process.env.REACT_APP_BACKEND;
+var domain = process.env.REACT_APP_BACKEND;
 export const login = (credential) => {
   const loginUrl = `${domain}/auth/login`;
   const statusOfApiRequest = fetch(loginUrl, {
@@ -18,7 +17,7 @@ export const login = (credential) => {
 };
 
 export const register = (credential) => {
-  const registerUrl = `${domain}/auth/register`;
+  const registerUrl = `${process.env.REACT_APP_BACKEND}/auth/register`;
   return fetch(registerUrl, {
     method: "POST",
     headers: {
@@ -58,11 +57,13 @@ export const getStaysByHost = () => {
       Authorization: `Bearer ${authToken}`,
     },
   }).then((response) => {
-    if (response.status >= 300) {
-      throw Error("FAILED TO GET STAY LIST!");
+    if (response.status === 401) {
+      throw Error("Sorry Please login Again!");
+    } else if (response.status >= 300) {
+      throw Error("Failed to get data.");
+    } else {
+      return response.json();
     }
-
-    return response.json();
   });
 };
 
