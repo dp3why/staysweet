@@ -28,11 +28,9 @@ export class BookStayButton extends React.Component {
 
     try {
       await bookStay({
-        checkin_date: values.checkin_date.format("YYYY-MM-DD"),
-        checkout_date: values.checkout_date.format("YYYY-MM-DD"),
-        stay: {
-          listingId: stay.id,
-        },
+        checkInDate: values.checkin_date.format("YYYY-MM-DD"),
+        checkOutDate: values.checkout_date.format("YYYY-MM-DD"),
+        listingId: stay.id,
       });
       message.success("Successfully book stay");
     } catch (error) {
@@ -84,7 +82,7 @@ export class BookStayButton extends React.Component {
                 type="primary"
                 htmlType="submit"
               >
-                BOOK
+                Book
               </Button>
             </Form.Item>
           </Form>
